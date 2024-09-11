@@ -1,0 +1,17 @@
+n=int(input("ENTER A NUMBER:"))
+a=b=n
+ct=0
+s=0
+while a>0:
+    ct=ct+1
+    a=a//10
+
+while b>0:
+    d=b%10
+    s=s+d**ct
+    b=b//10
+    
+if n==s:
+    print("IT IS A ARMSTRONG NUMBER.")
+else:
+    print("IT IS NOT A ARMSTRONG NUMBER.")
