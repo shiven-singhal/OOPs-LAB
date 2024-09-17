@@ -1,0 +1,12 @@
+n=int(input("ENTER A NUMBER:"))
+a=n
+s=0
+while a>0:
+    b=a%10
+    s=s+b
+    a=a//10
+
+if n%s==0:
+    print("IT IS A HARSHAD NUMBER.")
+else:
+    print("IT IS NOT A HARSHAD NUMBER.")
