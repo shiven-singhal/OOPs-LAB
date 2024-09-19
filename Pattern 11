@@ -1,0 +1,14 @@
+rows = 4
+for i in range(1, rows + 1):
+    start_char = 'A' if i % 2 != 0 else 'B'
+    
+    for j in range(2 * i - 1):
+        print(start_char, end=" ")
+        start_char = 'A' if start_char == 'B' else 'B'
+    print()
+
+
+# A 
+# B A B 
+# A B A B A 
+# B A B A B A B 
