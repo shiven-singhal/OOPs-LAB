@@ -1,0 +1,82 @@
+class Movie:
+    def __init__(self, name, showtimes):
+        self.name = name
+        self.showtimes = showtimes  
+
+    def display_showtimes(self):
+        print(f"\nMovie: {self.name}")
+        for i, show in enumerate(self.showtimes, start=1):
+            print(f"{i}. {show.time} - Available Seats: {show.available_seats}")
+
+class Show:
+    def __init__(self, time, seats=50):
+        self.time = time
+        self.seats = seats
+        self.available_seats = seats
+
+    def book_seats(self, num_seats):
+        if num_seats <= self.available_seats:
+            self.available_seats -= num_seats
+            print(f"{num_seats} seats successfully booked for show at {self.time}.")
+            return True
+        else:
+            print("Not enough seats available.")
+            return False
+
+class Ticket:
+    def __init__(self, movie, show, num_seats):
+        self.movie = movie
+        self.show = show
+        self.num_seats = num_seats
+
+    def display_ticket_details(self):
+        print(f"\n - Ticket Confirmation -")
+        print(f"Movie: {self.movie.name}")
+        print(f"Show Time: {self.show.time}")
+        print(f"Seats Booked: {self.num_seats}")
+        print("-----------")
+
+class BookingSystem:
+    def __init__(self):
+        self.movies = [
+            Movie("Bahubali 2: The Conclusion", [Show("10:00 AM"), Show("01:45 PM"), Show("06:00 PM")]),
+            Movie("Salaar", [Show("11:00 AM"), Show("03:15 PM"), Show("07:25 PM")]),
+            Movie("Kalki 2898 AD", [Show("12:00 PM"), Show("03:30 PM"), Show("08:00 PM")]),
+        ]
+
+    def display_movies(self):
+        print("\nAvailable Movies:")
+        for i, movie in enumerate(self.movies, start=1):
+            print(f"{i}. {movie.name}")
+
+    def start_booking(self):
+        self.display_movies()
+        movie_index = int(input("Choose a movie by entering the corresponding number: ")) - 1
+
+        if 0 <= movie_index < len(self.movies):
+            selected_movie = self.movies[movie_index]
+            selected_movie.display_showtimes()
+
+            show_index = int(input("Choose a show time by entering the corresponding number: ")) - 1
+            if 0 <= show_index < len(selected_movie.showtimes):
+                selected_show = selected_movie.showtimes[show_index]
+
+                num_seats = int(input("Enter the number of seats you want to book: "))
+                if num_seats > 0 and selected_show.book_seats(num_seats):
+                    ticket = Ticket(selected_movie, selected_show, num_seats)
+                    ticket.display_ticket_details()
+                else:
+                    print("Booking failed. Please try again.")
+            else:
+                print("Invalid show selection.")
+        else:
+            print("Invalid movie selection.")
+
+system = BookingSystem()
+while True:
+    print("\n- Welcome to Online Movie Ticket Booking -")
+    system.start_booking()
+    continue_booking = input("Do you want to book another ticket? (yes/no): ").strip().lower()
+    if continue_booking != 'yes':
+        print("Thank you for using the booking system!")
+        break
